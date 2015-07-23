@@ -3,6 +3,8 @@
 import { default as getFramedJwt } from './framed';
 import { default as getLocalJwt } from './local';
 
+export { default as host } from './host';
+
 function framed () {
 	return !window.D2L;
 }
