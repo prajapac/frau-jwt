@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Utility to get a JWT from a FRA",
   "main": "src/index.js",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,11 +19,12 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "dependencies": {
+    "babel-runtime": "^5.8.20",
+    "babelify": "^6.1.3",
     "ifrau": "^0.5.1",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
-    "babelify": "^6.1.3",
     "browserify": "^11.0.0"
   }
 }
