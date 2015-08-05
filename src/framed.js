@@ -4,12 +4,16 @@ import { Client } from 'ifrau';
 
 export const REQUEST_KEY = 'newJwt';
 
-export default async function getFramedJwt () {
-	const client = new Client();
+export default function getFramedJwt () {
+	return Promise
+		.resolve()
+		.then(function () {
+			const client = new Client();
 
-	await client.connect();
-
-	const jwt = await client.request(REQUEST_KEY);
-
-	return jwt;
+			return client
+				.connect()
+				.then(function () {
+					return client.request(REQUEST_KEY);
+				});
+		});
 }
