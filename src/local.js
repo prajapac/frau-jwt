@@ -1,14 +1,15 @@
 'use strict';
 
-const request = require('superagent');
+var Promise = require('lie'),
+	request = require('superagent');
 
-const TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
+var TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
 
-export default function getLocalJwt () {
-	return new Promise((resolve, reject) => {
+module.exports = function getLocalJwt () {
+	return new Promise(function (resolve, reject) {
 		request
 			.post(TOKEN_ROUTE)
-			.end((err, res) => {
+			.end(function (err, res) {
 				if (err) {
 					return reject(err);
 				}
@@ -16,4 +17,4 @@ export default function getLocalJwt () {
 				resolve(res.body);
 			});
 	});
-}
+};

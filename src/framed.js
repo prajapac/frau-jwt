@@ -1,14 +1,15 @@
 'use strict';
 
-import { Client } from 'ifrau';
+var Client = require('ifrau').Client,
+	Promise = require('lie');
 
-export const REQUEST_KEY = 'frau-jwt-newJwt';
+var REQUEST_KEY = require('./request-key');
 
-export default function getFramedJwt () {
+module.exports = function getFramedJwt () {
 	return Promise
 		.resolve()
 		.then(function () {
-			const client = new Client();
+			var client = new Client();
 
 			return client
 				.connect()
@@ -16,4 +17,4 @@ export default function getFramedJwt () {
 					return client.request(REQUEST_KEY);
 				});
 		});
-}
+};

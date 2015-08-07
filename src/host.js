@@ -1,9 +1,9 @@
 'use strict';
 
-import { default as getJwt } from './local';
+var getJwt = require('./');
 
-import { REQUEST_KEY } from './framed';
+var REQUEST_KEY = require('./request-key');
 
-export default function ifrauJwtHost (host) {
+module.exports = function ifrauJwtHost (host) {
 	host.onRequest(REQUEST_KEY, getJwt);
-}
+};

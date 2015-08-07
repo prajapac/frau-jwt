@@ -1,5 +1,4 @@
 {
-	"esnext": true,
 	"node": true,
 	"browser": true,
 	"laxbreak": true

@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "Utility to get a JWT from a FRA",
   "main": "src/index.js",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,10 +21,9 @@
     "url": "https://github.com/Brightspace/frau-jwt/issues"
   },
   "dependencies": {
-    "babel-runtime": "^5.8.20",
-    "babelify": "^6.1.3",
     "frau-framed": "^1.0.0",
     "ifrau": "^0.7.2",
+    "lie": "^3.0.1",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
