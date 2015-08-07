@@ -2,7 +2,7 @@
 
 import { Client } from 'ifrau';
 
-export const REQUEST_KEY = 'newJwt';
+export const REQUEST_KEY = 'frau-jwt-newJwt';
 
 export default function getFramedJwt () {
 	return Promise
