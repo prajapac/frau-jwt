@@ -1,9 +1,11 @@
-coverage
-dist
-node_modules
-src
-test
+.gitignore
+.npmignore
+
 .editorconfig
+.jscs.json
 .jshintrc
+.jshintignore
+
+test
+coverage
 .travis.yml
-gulpfile.js
