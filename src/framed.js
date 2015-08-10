@@ -5,7 +5,7 @@ var Client = require('ifrau').Client,
 
 var REQUEST_KEY = require('./request-key');
 
-module.exports = function getFramedJwt () {
+module.exports = function getFramedJwt (scope) {
 	return Promise
 		.resolve()
 		.then(function () {
@@ -14,7 +14,7 @@ module.exports = function getFramedJwt () {
 			return client
 				.connect()
 				.then(function () {
-					return client.request(REQUEST_KEY);
+					return client.request(REQUEST_KEY, scope);
 				});
 		});
 };
