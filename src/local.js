@@ -15,7 +15,7 @@ function clock () {
 }
 
 function expired (token) {
-	return clock() > token.expires_at;
+	return module.exports._clock() > token.expires_at;
 }
 
 function cacheToken (scope, token) {
@@ -89,4 +89,10 @@ module.exports = function getLocalJwt (scope) {
 						.then(cached);
 				});
 		});
+};
+
+module.exports._clock = clock;
+module.exports._resetCaches = function () {
+	CACHED_TOKENS = {};
+	IN_FLIGHT_REQUESTS = {};
 };
