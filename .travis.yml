@@ -4,3 +4,11 @@ node_js:
 sudo: false
 after_success:
 - npm run report-coverage
+deploy:
+  provider: npm
+  email: d2ltravisdeploy@d2l.com
+  api_key:
+    secure: gx1j/MrHi9dgGLDK/+rbdCmUISDfENfMsoNPwcItmbEuoRKikh8Xsc0SwhVP6D9kV5NWI5HyVVHlj9JHfvKluP122BGFFYLhG6W7Qz4PDbx+CUq0d7vNQUM5QUNRe8LHF6wZjD+OPICqhbex0ylmiU2Jk+bRpDHx32LnKpVLWw7ghqJktIFYGEpmf2KZRTs/mNW626SI9pgOufKqGVq/lwOPJcUiW8WbeZgCATzOLIdGwFcwgf6/DbdGYp5CChZZKmrKp327D1Li7O5RaD1bCjEXJZ1nCK3LxmT9ykeLZpSyivW69Eg7kpsy19EdKqqDkmHtdJZ8KvrxosIhPdTqjjcKldPH/eHBP5J4rnNbKgffbJ/Ul3s7QUQ4ZCfglf9b5/jninhwhDa8rCqTul74pC6wM4XZbgYgqZg2wcLHnTabfTag+NYv2IJhxGpOAhSLLAEkW3Kf0ENoOtsUqOCnGeVvVvPKv/3sn56uvEgZjmthUyWTAS+rRaShNO/SMsaxAa62g5ekjOcwiB0O1kej2bN8moT9F+FVtJ0MNKq9uwMRndpGD2/XdtI5cIkiviSQ9nEzBEG5EAwaYLXAdDLr+s+nZp3MDWWaPLDfgvZ52ubNjXIFWrKF0w+wmnZ+cQNipMSqO6IjqFGyIIdEAzjnhIqj1UtSD1XAwmxX+CDo4C0=
+  on:
+    tags: true
+    repo: Brightspace/frau-jwt
