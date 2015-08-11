@@ -1,6 +1,6 @@
 'use strict';
 
-var getJwt = require('./');
+var getJwt = require('./local');
 
 var REQUEST_KEY = require('./request-key');
 
