@@ -29,7 +29,7 @@ function cachedToken (scope) {
 			var cached = CACHED_TOKENS[scope];
 			if (cached) {
 				if (!expired(cached)) {
-					return cached.token;
+					return cached.access_token;
 				}
 
 				delete CACHED_TOKENS[scope];

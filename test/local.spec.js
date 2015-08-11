@@ -24,7 +24,7 @@ describe('local', function () {
 			.post(TOKEN_ROUTE, /scope=\*%3A\*%3A\*/)
 			.reply(200, {
 				expires_at: 1,
-				token: 'foo-bar-baz'
+				access_token: 'foo-bar-baz'
 			});
 
 		return jwt().then(function () {
@@ -37,7 +37,7 @@ describe('local', function () {
 			.post(TOKEN_ROUTE)
 			.reply(200, {
 				expires_at: 1,
-				token: 'foo-bar-baz'
+				access_token: 'foo-bar-baz'
 			});
 
 		return expect(jwt())
@@ -53,7 +53,7 @@ describe('local', function () {
 			.once()
 			.reply(200, {
 				expires_at: 1,
-				token: 'foo-bar-baz'
+				access_token: 'foo-bar-baz'
 			});
 
 		return Promise
@@ -71,12 +71,12 @@ describe('local', function () {
 			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
 			.reply(200, {
 				expires_at: 1,
-				token: 'abc'
+				access_token: 'abc'
 			})
 			.post(TOKEN_ROUTE, /scope=x%3Ay%3Az/)
 			.reply(200, {
 				expires_at: 1,
-				token: 'xyz'
+				access_token: 'xyz'
 			});
 
 		return Promise
@@ -95,13 +95,13 @@ describe('local', function () {
 			.once()
 			.reply(200, {
 				expires_at: 1,
-				token: 'abc'
+				access_token: 'abc'
 			})
 			.post(TOKEN_ROUTE, /scope=x%3Ay%3Az/)
 			.once()
 			.reply(200, {
 				expires_at: 1,
-				token: 'xyz'
+				access_token: 'xyz'
 			});
 
 		return Promise
@@ -127,13 +127,13 @@ describe('local', function () {
 			.once()
 			.reply(200, {
 				expires_at: 1,
-				token: 'abc'
+				access_token: 'abc'
 			})
 			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
 			.once()
 			.reply(200, {
 				expires_at: 3,
-				token: 'abc'
+				access_token: 'abc'
 			});
 
 		return expect(jwt('a:b:c'))
