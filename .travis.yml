@@ -4,6 +4,7 @@ node_js:
 sudo: false
 after_success:
 - npm run report-coverage
+- '[ "$TRAVIS_SECURE_ENV_VARS" = "true" ] && [ "x$TRAVIS_TAG" != "x" ] && npm run publish:cdn'
 deploy:
   provider: npm
   email: d2ltravisdeploy@d2l.com
@@ -12,3 +13,7 @@ deploy:
   on:
     tags: true
     repo: Brightspace/frau-jwt
+env:
+  global:
+  - secure: SO/+UkN9rJKYBnxwrAOY63Sss38gWOVjo4B/cP8OZ+V6LakWcJIkeRg4Xftg+85hZv0UfLhBEp5l8dOAE1bcPn8mvm6V3Aq9wdFR0s9xNuygDsHmBonEd5McKT8qXkOUbNrEi14XBctHNCjKSW8D7Z5pXibFDS3c6wWqlTDmCf/padXJIfL9N+FwYCkMxPwgqz3b/yAp1gqrNxqb9r56e/KZhJBEQqXDApnJqXZeV9Pfcj0fN8df9xiNVsYstY9YGwPXCXAWfxlaU/zmuUdm2r9n6FqSnY3cHfI0IHSnw6Ucyt2r3mj41qwKuctUzeJHoKhB6LyMaRMVOWRE7yKSfIFgh4bDdkQVR3mb3tMGZDBO67K8W+QLPPwonDspzj7M9Ao4QaxKQcVtMoUM03VeW3/LRKJa+AQY1GlyD9cf7c/OgUlzVqcThpztU3eNSNh4jbGgYhZU9PVr2rYyMx8lj16t7GqNWTqIQN/LlIqSD0m+m9eSTikoymDvEklyEZwzKmvWT3EBaP6aNO3dE2FK71NXta22jdepWBokwuatTNuUCGwAzn1CCf3/erlkeH79EuiikZwMRzTWY4/p9+bZilISsOphmtDiVa2wKVSFnAui23NP+NihYUPBvGAITmPSeGbw92meLeAIjGY6PTkqMeSZiQSGJF/uPToUp4sKjbU=
+  - secure: LkmMqtXvI8MGFupXyPPEch0FfAAOx38cheHl6x6wI3D4TmC9J7xon2lFoU+2kDPnpQQnKOBASf1xrdHKttMuoymFdCgshwaIS6AEpgTVQZn5TgmaHQxuxOkRnR8/Na9FFQxCxEA1dNrWLtHuX+9if6eVd09yfo3lafFTvIQuwQO/IiEQ/tn6rCXlsH4dVQBB9T4LOrnVzpHmpuqTvQdC8rjoaK62YMY6jAOdScGTUP7fvj2UrqphG8eRBtgN4xrmBPItVinW7ocltN8nOcWC1KrdV2nrxpQlP2Vh62HT5GWD8UZ+4ohGBnlQ2BTO2UjFKppRMDWDwoMWQcwj+r78lTD+GZXPwnHob8XP84KUcEOpaTRHZL347GEj0I0xw3cRlWYjWp7i0ftMwcJJ0f+fdbeuyqNMQhCHbXk+iCO6wjOFohmYXStzUa3u87ldsP4ivSNpk3KD+T1Dkgnri/AOSpULUg7LDmybUt9D8pGyMpbNl54++pQOVkhShiQ8HRtbv6alx73sxKh0ejm0QMsPosTMB5y3THbkgLmIWn8zZ2BNPg/mINmMroEc66mGsYNGfOY0A7cTlfDoZNGprSBHljwmdTLcK9iWur5O8sTByiXbeomFaV532aREvIoTKHPEZROCrk1subXbMM40ctGHjWlbHiRyouKGgnS7SL//CiQ=

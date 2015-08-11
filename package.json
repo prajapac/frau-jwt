@@ -5,7 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "test": "istanbul cover _mocha -r test/_setup.js test/*.spec.js",
-    "report-coverage": "coveralls < coverage/lcov.info"
+    "report-coverage": "coveralls < coverage/lcov.info",
+    "prebundle-host": "rimraf dist && mkdir dist",
+    "bundle-host": "browserify -g uglifyify -s frau-jwt/host src/host.js > dist/host.js",
+    "prepublish:cdn": "npm run bundle-host",
+    "publish:cdn": "gulp publish"
   },
   "repository": {
     "type": "git",
@@ -29,12 +33,18 @@
     "superagent": "^1.3.0"
   },
   "devDependencies": {
+    "browserify": "^11.0.1",
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "coveralls": "^2.11.3",
+    "gulp": "^3.9.0",
+    "gulp-frau-publisher": "^2.3.1",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "nock": "^2.10.0",
-    "sinon": "^1.15.4"
+    "peanut-gallery": "^1.0.0",
+    "rimraf": "^2.4.2",
+    "sinon": "^1.15.4",
+    "uglifyify": "^3.0.1"
   }
 }
