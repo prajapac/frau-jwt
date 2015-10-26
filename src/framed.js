@@ -1,6 +1,6 @@
 'use strict';
 
-var Client = require('ifrau').Client,
+var Client = require('ifrau/client'),
 	Promise = require('lie');
 
 var REQUEST_KEY = require('./request-key');
