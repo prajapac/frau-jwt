@@ -5,7 +5,7 @@ var framed = require('frau-framed');
 var getFramed = require('./framed'),
 	getLocal = require('./local');
 
-module.exports = function frauJwt () {
+module.exports = function frauJwt() {
 	var fn = framed()
 		? getFramed
 		: getLocal;

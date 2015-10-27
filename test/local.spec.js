@@ -9,17 +9,17 @@ var TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
 
 var jwt = require('../src/local');
 
-describe('local', function () {
-	beforeEach(function () {
+describe('local', function() {
+	beforeEach(function() {
 		sinon.stub(jwt, '_clock');
 		jwt._clock.returns(0);
 	});
-	afterEach(function () {
+	afterEach(function() {
 		jwt._clock.restore();
 		jwt._resetCaches();
 	});
 
-	it('should default to scope *:*:*', function () {
+	it('should default to scope *:*:*', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE, /scope=\*%3A\*%3A\*/)
 			.reply(200, {
@@ -27,12 +27,12 @@ describe('local', function () {
 				access_token: 'foo-bar-baz'
 			});
 
-		return jwt().then(function () {
+		return jwt().then(function() {
 			req.done();
 		});
 	});
 
-	it('should resolve with token the LMS returns', function () {
+	it('should resolve with token the LMS returns', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE)
 			.reply(200, {
@@ -42,12 +42,12 @@ describe('local', function () {
 
 		return expect(jwt())
 			.to.eventually.equal('foo-bar-baz')
-			.then(function () {
+			.then(function() {
 				req.done();
 			});
 	});
 
-	it('should dedupe concurrent requests for the same scope', function () {
+	it('should dedupe concurrent requests for the same scope', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE)
 			.once()
@@ -61,12 +61,12 @@ describe('local', function () {
 				expect(jwt()).to.eventually.equal('foo-bar-baz'),
 				expect(jwt()).to.eventually.equal('foo-bar-baz')
 			])
-			.then(function () {
+			.then(function() {
 				req.done();
 			});
 	});
 
-	it('should not dedupe concurrent requests for different scopes', function () {
+	it('should not dedupe concurrent requests for different scopes', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
 			.reply(200, {
@@ -84,12 +84,12 @@ describe('local', function () {
 				expect(jwt('a:b:c')).to.eventually.equal('abc'),
 				expect(jwt('x:y:z')).to.eventually.equal('xyz')
 			])
-			.then(function () {
+			.then(function() {
 				req.done();
 			});
 	});
 
-	it('should cache tokens per scope', function () {
+	it('should cache tokens per scope', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
 			.once()
@@ -109,19 +109,19 @@ describe('local', function () {
 				expect(jwt('a:b:c')).to.eventually.equal('abc'),
 				expect(jwt('x:y:z')).to.eventually.equal('xyz')
 			])
-			.then(function () {
+			.then(function() {
 				return Promise
 					.all([
 						expect(jwt('a:b:c')).to.eventually.equal('abc'),
 						expect(jwt('x:y:z')).to.eventually.equal('xyz')
 					]);
 			})
-			.then(function () {
+			.then(function() {
 				req.done();
 			});
 	});
 
-	it('should re-fetch tokens after expiry', function () {
+	it('should re-fetch tokens after expiry', function() {
 		var req = nock('http://localhost')
 			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
 			.once()
@@ -138,13 +138,13 @@ describe('local', function () {
 
 		return expect(jwt('a:b:c'))
 			.to.eventually.equal('abc')
-			.then(function () {
+			.then(function() {
 				jwt._clock.returns(2);
 			})
-			.then(function () {
+			.then(function() {
 				return expect(jwt('a:b:c')).to.eventually.equal('abc');
 			})
-			.then(function () {
+			.then(function() {
 				req.done();
 			});
 	});

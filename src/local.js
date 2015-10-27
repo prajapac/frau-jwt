@@ -10,22 +10,22 @@ var DEFAULT_SCOPE = '*:*:*',
 var CACHED_TOKENS = {},
 	IN_FLIGHT_REQUESTS = {};
 
-function clock () {
+function clock() {
 	return (Date.now() / 1000) | 0;
 }
 
-function expired (token) {
+function expired(token) {
 	return module.exports._clock() > token.expires_at;
 }
 
-function cacheToken (scope, token) {
+function cacheToken(scope, token) {
 	CACHED_TOKENS[scope] = token;
 }
 
-function cachedToken (scope) {
+function cachedToken(scope) {
 	return Promise
 		.resolve()
-		.then(function () {
+		.then(function() {
 			var cached = CACHED_TOKENS[scope];
 			if (cached) {
 				if (!expired(cached)) {
@@ -39,8 +39,8 @@ function cachedToken (scope) {
 		});
 }
 
-function requestToken (scope) {
-	return new Promise(function (resolve, reject) {
+function requestToken(scope) {
+	return new Promise(function(resolve, reject) {
 		request
 			.post(TOKEN_ROUTE)
 			.type('form')
@@ -48,7 +48,7 @@ function requestToken (scope) {
 				scope: scope
 			})
 			.use(xsrfToken)
-			.end(function (err, res) {
+			.end(function(err, res) {
 				if (err) {
 					return reject(err);
 				}
@@ -58,14 +58,14 @@ function requestToken (scope) {
 	});
 }
 
-function requestTokenDeduped (scope) {
+function requestTokenDeduped(scope) {
 	if (!IN_FLIGHT_REQUESTS[scope]) {
 		IN_FLIGHT_REQUESTS[scope] = requestToken(scope)
-			.then(function (token) {
+			.then(function(token) {
 				delete IN_FLIGHT_REQUESTS[scope];
 				return token;
 			})
-			.catch(function (e) {
+			.catch(function(e) {
 				delete IN_FLIGHT_REQUESTS[scope];
 				throw e;
 			});
@@ -74,16 +74,16 @@ function requestTokenDeduped (scope) {
 	return IN_FLIGHT_REQUESTS[scope];
 }
 
-module.exports = function getLocalJwt (scope) {
+module.exports = function getLocalJwt(scope) {
 	return Promise
 		.resolve()
-		.then(function () {
+		.then(function() {
 			scope = scope || DEFAULT_SCOPE;
 
 			var cached = cachedToken.bind(null, scope);
 
 			return cached()
-				.catch(function () {
+				.catch(function() {
 					return requestTokenDeduped(scope)
 						.then(cacheToken.bind(null, scope))
 						.then(cached);
@@ -92,7 +92,7 @@ module.exports = function getLocalJwt (scope) {
 };
 
 module.exports._clock = clock;
-module.exports._resetCaches = function () {
+module.exports._resetCaches = function() {
 	CACHED_TOKENS = {};
 	IN_FLIGHT_REQUESTS = {};
 };
