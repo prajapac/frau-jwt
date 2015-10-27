@@ -9,7 +9,19 @@
     "prebundle-host": "rimraf dist && mkdir dist",
     "bundle-host": "browserify -g uglifyify -s frau-jwt/host src/host.js > dist/host.js",
     "prepublish:cdn": "npm run bundle-host",
-    "publish:cdn": "gulp publish"
+    "publish:cdn": "frau-publisher | peanut-gallery"
+  },
+  "config": {
+    "frauPublisher": {
+      "files": "./dist/host.js",
+      "moduleType": "lib",
+      "targetDirectory": "frau-jwt",
+      "creds": {
+        "key": "***REMOVED***",
+        "secretVar": "CDN_SECRET"
+      },
+      "versionVar": "TRAVIS_TAG"
+    }
   },
   "repository": {
     "type": "git",
@@ -37,12 +49,11 @@
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "coveralls": "^2.11.3",
-    "gulp": "^3.9.0",
-    "gulp-frau-publisher": "^2.3.1",
+    "frau-publisher": "^2.5.2",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "nock": "^2.10.0",
-    "peanut-gallery": "^1.0.0",
+    "peanut-gallery": "^1.1.1",
     "rimraf": "^2.4.2",
     "sinon": "^1.15.4",
     "uglifyify": "^3.0.1"
