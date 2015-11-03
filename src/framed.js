@@ -10,6 +10,7 @@ module.exports = function getFramedJwt(scope) {
 		.resolve()
 		.then(function() {
 			var client = new Client({
+				resizeFrame: false,
 				syncTitle: false
 			});
 
