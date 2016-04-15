@@ -7,8 +7,10 @@ var Promise = require('lie'),
 var DEFAULT_SCOPE = '*:*:*',
 	TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
 
-var CACHED_TOKENS = {},
-	IN_FLIGHT_REQUESTS = {};
+var CACHED_TOKENS = null,
+	IN_FLIGHT_REQUESTS = null;
+
+resetCaches();
 
 function clock() {
 	return (Date.now() / 1000) | 0;
@@ -16,6 +18,11 @@ function clock() {
 
 function expired(token) {
 	return module.exports._clock() > token.expires_at;
+}
+
+function resetCaches() {
+	CACHED_TOKENS = Object.create(null);
+	IN_FLIGHT_REQUESTS = Object.create(null);
 }
 
 function cacheToken(scope, token) {
@@ -91,8 +98,21 @@ module.exports = function getLocalJwt(scope) {
 		});
 };
 
+function sessionListener(e) {
+	switch (e.key) {
+		case 'Session.Expired':
+		case 'Session.UserId':
+			resetCaches();
+			break;
+		default:
+			break;
+	}
+}
+if (global.addEventListener) {
+	global.addEventListener('storage', sessionListener);
+} else if (global.attachEvent) {
+	global.addEventListener('onstorage', sessionListener);
+}
+
 module.exports._clock = clock;
-module.exports._resetCaches = function() {
-	CACHED_TOKENS = {};
-	IN_FLIGHT_REQUESTS = {};
-};
+module.exports._resetCaches = resetCaches;
