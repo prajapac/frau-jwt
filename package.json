@@ -1,6 +1,6 @@
 {
   "name": "frau-jwt",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Utility to get a JWT from a FRA",
   "main": "src/index.js",
   "scripts": {
