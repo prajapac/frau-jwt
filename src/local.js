@@ -98,5 +98,21 @@ module.exports = function getLocalJwt(scope) {
 		});
 };
 
+function sessionListener(e) {
+	switch (e.key) {
+		case 'Session.Expired':
+		case 'Session.UserId':
+			resetCaches();
+			break;
+		default:
+			break;
+	}
+}
+if (global.addEventListener) {
+	global.addEventListener('storage', sessionListener);
+} else if (global.attachEvent) {
+	global.addEventListener('onstorage', sessionListener);
+}
+
 module.exports._clock = clock;
 module.exports._resetCaches = resetCaches;
