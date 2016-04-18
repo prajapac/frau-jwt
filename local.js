@@ -121,7 +121,7 @@ module.exports = function getLocalJwt(scope) {
 		});
 };
 
-function sessionListener(e) {
+global.addEventListener && global.addEventListener('storage', function sessionListener(e) {
 	switch (e.key) {
 		case 'Session.Expired':
 		case 'Session.UserId':
@@ -130,12 +130,7 @@ function sessionListener(e) {
 		default:
 			break;
 	}
-}
-if (global.addEventListener) {
-	global.addEventListener('storage', sessionListener);
-} else if (global.attachEvent) {
-	global.attachEvent('onstorage', sessionListener);
-}
+});
 
 module.exports._clock = clock;
 module.exports._resetCaches = resetCaches;
