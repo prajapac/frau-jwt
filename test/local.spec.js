@@ -133,7 +133,7 @@ describe('local', function() {
 			.once()
 			.reply(200, {
 				expires_at: 3,
-				access_token: 'abc'
+				access_token: 'def'
 			});
 
 		return expect(jwt('a:b:c'))
@@ -142,7 +142,39 @@ describe('local', function() {
 				jwt._clock.returns(2);
 			})
 			.then(function() {
-				return expect(jwt('a:b:c')).to.eventually.equal('abc');
+				return expect(jwt('a:b:c')).to.eventually.equal('def');
+			})
+			.then(function() {
+				req.done();
+			});
+	});
+
+	it('should account for clock skew from server when determining expiry', function() {
+		jwt._clock.returns(1);
+
+		var req = nock('http://localhost')
+			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
+			.once()
+			.reply(200, {
+				expires_at: 10,
+				access_token: 'abc'
+			}, {
+				'Date': 'Thu, 1 Jan 1970 00:00:03 GMT' // clock skew of 2
+			})
+			.post(TOKEN_ROUTE, /scope=a%3Ab%3Ac/)
+			.once()
+			.reply(200, {
+				expires_at: 20,
+				access_token: 'def'
+			});
+
+		return expect(jwt('a:b:c'))
+			.to.eventually.equal('abc')
+			.then(function() {
+				jwt._clock.returns(9); // 11 after skew
+			})
+			.then(function() {
+				return expect(jwt('a:b:c')).to.eventually.equal('def');
 			})
 			.then(function() {
 				req.done();
