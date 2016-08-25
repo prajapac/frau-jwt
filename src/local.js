@@ -8,7 +8,8 @@ var DEFAULT_SCOPE = '*:*:*',
 	TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
 
 var CACHED_TOKENS = null,
-	IN_FLIGHT_REQUESTS = null;
+	IN_FLIGHT_REQUESTS = null,
+	CLOCK_SKEW = 0;
 
 resetCaches();
 
@@ -17,7 +18,7 @@ function clock() {
 }
 
 function expired(token) {
-	return module.exports._clock() > token.expires_at;
+	return module.exports._clock() + CLOCK_SKEW > token.expires_at;
 }
 
 function resetCaches() {
@@ -46,6 +47,26 @@ function cachedToken(scope) {
 		});
 }
 
+function adjustClockSkew(res) {
+	var dateHeader = res.headers && res.headers.date;
+	if (!dateHeader) {
+		return;
+	}
+
+	var serverTime = new Date(dateHeader).getTime();
+	// getTime() will return NaN when dateHeader wasn't parseable
+	// and this is faster than isNaN
+	if (serverTime !== serverTime) {
+		return;
+	}
+
+	serverTime = serverTime / 1000 | 0;
+
+	var currentTime = module.exports._clock();
+
+	CLOCK_SKEW = serverTime - currentTime;
+}
+
 function requestToken(scope) {
 	return new Promise(function(resolve, reject) {
 		request
@@ -59,6 +80,8 @@ function requestToken(scope) {
 				if (err) {
 					return reject(err);
 				}
+
+				adjustClockSkew(res);
 
 				resolve(res.body);
 			});
