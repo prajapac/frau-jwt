@@ -134,7 +134,7 @@ function sessionListener(e) {
 if (global.addEventListener) {
 	global.addEventListener('storage', sessionListener);
 } else if (global.attachEvent) {
-	global.addEventListener('onstorage', sessionListener);
+	global.attachEvent('onstorage', sessionListener);
 }
 
 module.exports._clock = clock;
