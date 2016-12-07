@@ -2,7 +2,7 @@
   "name": "frau-jwt",
   "version": "1.1.0",
   "description": "Utility to get a JWT from a FRA",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "check-style": "eslint .",
     "test-unit": "istanbul cover _mocha -r test/_setup.js test/*.spec.js",

@@ -7,7 +7,7 @@ var expect = require('chai').expect,
 
 var TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
 
-var jwt = require('../src/local');
+var jwt = require('../local');
 
 describe('local', function() {
 	beforeEach(function() {
