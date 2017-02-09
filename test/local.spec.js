@@ -21,7 +21,7 @@ describe('local', function() {
 
 	it('should default to scope *:*:*', function() {
 		var req = nock('http://localhost')
-			.post(TOKEN_ROUTE, /scope=\*%3A\*%3A\*/)
+			.post(TOKEN_ROUTE, /scope=%2A%3A%2A%3A%2A/)
 			.reply(200, {
 				expires_at: 1,
 				access_token: 'foo-bar-baz'
