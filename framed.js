@@ -9,17 +9,14 @@ module.exports = function getFramedJwt(scope) {
 	return Promise
 		.resolve()
 		.then(function() {
-			var client = new Client({
+			return new Client({
 				resizeFrame: false,
 				syncTitle: false,
 				syncLang: false,
 				syncFont: false
-			});
-
-			return client
-				.connect()
-				.then(function() {
-					return client.request(REQUEST_KEY, scope);
-				});
+			}).connect();
+		})
+		.then(function(client) {
+			return client.request(REQUEST_KEY, scope);
 		});
 };
