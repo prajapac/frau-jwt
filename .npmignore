@@ -5,6 +5,7 @@
 .eslintignore
 .eslintrc
 
+dist
 test
 coverage
 .travis.yml
