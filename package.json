@@ -9,7 +9,7 @@
     "test": "npm run check-style && npm run test-unit",
     "report-coverage": "coveralls < coverage/lcov.info",
     "prebundle-host": "rimraf dist && mkdir dist",
-    "bundle-host": "browserify -g uglifyify -s frau-jwt/host src/host.js > dist/host.js",
+    "bundle-host": "browserify -g uglifyify -s frau-jwt/host host.js > dist/host.js",
     "prepublish:cdn": "npm run bundle-host",
     "publish:cdn": "frau-publisher | peanut-gallery"
   },
