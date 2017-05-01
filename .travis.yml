@@ -2,6 +2,9 @@ language: node_js
 node_js:
 - 6
 sudo: false
+script:
+- npm test
+- npm run bundle-host
 after_success:
 - npm run report-coverage
 - '[ "$TRAVIS_SECURE_ENV_VARS" = "true" ] && [ "x$TRAVIS_TAG" != "x" ] && npm run publish:cdn'
