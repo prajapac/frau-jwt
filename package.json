@@ -18,10 +18,6 @@
       "files": "./dist/host.js",
       "moduleType": "lib",
       "targetDirectory": "frau-jwt",
-      "creds": {
-        "key": "***REMOVED***",
-        "secretVar": "CDN_SECRET"
-      },
       "versionVar": "TRAVIS_TAG"
     }
   },
@@ -53,7 +49,7 @@
     "coveralls": "^2.11.9",
     "eslint": "^3.19.0",
     "eslint-config-brightspace": "^0.2.0",
-    "frau-publisher": "^2.5.3",
+    "frau-publisher": "^2.7.12",
     "istanbul": "^0.4.3",
     "mocha": "^3.3.0",
     "nock": "^9.0.4",
