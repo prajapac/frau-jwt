@@ -1,7 +1,5 @@
 language: node_js
-node_js:
-  - 6
-sudo: false
+node_js: node
 script:
   - npm test
   - npm run bundle-host
