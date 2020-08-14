@@ -75,7 +75,7 @@ This repository is configured with [EditorConfig][EditorConfig] and
 
 [npm-url]: https://www.npmjs.org/package/frau-jwt
 [npm-image]: https://img.shields.io/npm/v/frau-jwt.svg
-[ci-url]: https://travis-ci.org/Brightspace/frau-jwt
+[ci-url]: https://travis-ci.com/Brightspace/frau-jwt
 [ci-image]: https://img.shields.io/travis/Brightspace/frau-jwt.svg
 [coverage-url]: https://coveralls.io/r/Brightspace/frau-jwt?branch=master
 [coverage-image]: https://img.shields.io/coveralls/Brightspace/frau-jwt.svg
