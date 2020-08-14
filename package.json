@@ -1,6 +1,6 @@
 {
   "name": "frau-jwt",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Utility to get a JWT from a FRA",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "config": {
     "frauPublisher": {
-      "files": "./dist/host.js",
+      "files": "./dist/**/*.js",
       "moduleType": "lib",
       "targetDirectory": "frau-jwt",
       "versionVar": "TRAVIS_TAG"
