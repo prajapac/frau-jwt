@@ -2,7 +2,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build status][ci-image]][ci-url]
-[![Coverage Status][coverage-image]][coverage-url]
 [![Dependency Status][dependencies-image]][dependencies-url]
 
 Simple utility to get a json web token in a D2L free range application
@@ -77,8 +76,6 @@ This repository is configured with [EditorConfig][EditorConfig] and
 [npm-image]: https://img.shields.io/npm/v/frau-jwt.svg
 [ci-url]: https://travis-ci.com/Brightspace/frau-jwt
 [ci-image]: https://img.shields.io/travis/Brightspace/frau-jwt.svg
-[coverage-url]: https://coveralls.io/r/Brightspace/frau-jwt?branch=master
-[coverage-image]: https://img.shields.io/coveralls/Brightspace/frau-jwt.svg
 [dependencies-url]: https://david-dm.org/Brightspace/frau-jwt
 [dependencies-image]: https://img.shields.io/david/Brightspace/frau-jwt.svg
 
