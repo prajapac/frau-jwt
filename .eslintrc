@@ -2,5 +2,8 @@
   "extends": "brightspace",
   "env": {
     "node": true
-  }
+  },
+  "ignorePatterns": [
+    "ifrau-client.js"
+  ]
 }
