@@ -2,7 +2,6 @@
 
 var expect = require('chai').expect,
 	nock = require('nock'),
-	Promise = require('lie'),
 	sinon = require('sinon');
 
 var TOKEN_ROUTE = '/d2l/lp/auth/oauth2/token';
