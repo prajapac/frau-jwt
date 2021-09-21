@@ -1,3 +1,3 @@
-module.exports = import('ifrau').then(function(ifrau) {
+module.exports = import('ifrau/client/slim.js').then(function(ifrau) {
 	return ifrau.SlimClient;
 });
