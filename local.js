@@ -1,7 +1,6 @@
 'use strict';
 
-var Promise = require('./promise-or-lie'),
-	request = require('superagent'),
+var request = require('superagent'),
 	xsrfToken = require('frau-superagent-xsrf-token');
 
 var DEFAULT_SCOPE = '*:*:*',

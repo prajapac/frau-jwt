@@ -1,14 +1,12 @@
 'use strict';
 
-var Client = require('ifrau/client/slim'),
-	Promise = require('./promise-or-lie');
+var clientPromise = require('./ifrau-client');
 
 var REQUEST_KEY = require('./request-key');
 
 module.exports = function getFramedJwt(scope) {
-	return Promise
-		.resolve()
-		.then(function() {
+	return clientPromise
+		.then(function(Client) {
 			return new Client().connect();
 		})
 		.then(function(client) {

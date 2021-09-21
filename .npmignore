@@ -7,5 +7,4 @@
 
 dist
 test
-coverage
 .travis.yml
