@@ -66,10 +66,10 @@ function adjustClockSkew(res) {
 	CLOCK_SKEW = serverTime - currentTime;
 }
 
-function requestToken(scope, keepSessionAliveOnRefetch) {
-	const payload = keepSessionAliveOnRefetch
-		? {scope: scope}
-		: {scope: scope, 'X-D2L-Session': 'no-keep-alive'};
+function requestToken(scope, doNotKeepSessionAlive) {
+	const payload = doNotKeepSessionAlive
+		? {scope: scope, 'X-D2L-Session': 'no-keep-alive'}
+		: {scope: scope};
 
 	return new Promise(function(resolve, reject) {
 		request
@@ -89,9 +89,9 @@ function requestToken(scope, keepSessionAliveOnRefetch) {
 	});
 }
 
-function requestTokenDeduped(scope, keepSessionAliveOnRefetch) {
+function requestTokenDeduped(scope, doNotKeepSessionAlive) {
 	if (!IN_FLIGHT_REQUESTS[scope]) {
-		IN_FLIGHT_REQUESTS[scope] = requestToken(scope, keepSessionAliveOnRefetch)
+		IN_FLIGHT_REQUESTS[scope] = requestToken(scope, doNotKeepSessionAlive)
 			.then(function(token) {
 				delete IN_FLIGHT_REQUESTS[scope];
 				return token;
@@ -105,7 +105,11 @@ function requestTokenDeduped(scope, keepSessionAliveOnRefetch) {
 	return IN_FLIGHT_REQUESTS[scope];
 }
 
-module.exports = function getLocalJwt(scope, keepSessionAliveOnRefetch = true) {
+module.exports = function getLocalJwt(scope, doNotKeepSessionAlive) {
+	if (!doNotKeepSessionAlive) {
+		doNotKeepSessionAlive = false;
+	}
+
 	return Promise
 		.resolve()
 		.then(function() {
@@ -115,7 +119,7 @@ module.exports = function getLocalJwt(scope, keepSessionAliveOnRefetch = true) {
 
 			return cached()
 				.catch(function() {
-					return requestTokenDeduped(scope, keepSessionAliveOnRefetch)
+					return requestTokenDeduped(scope, doNotKeepSessionAlive)
 						.then(cacheToken.bind(null, scope))
 						.then(cached);
 				});
