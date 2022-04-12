@@ -66,14 +66,16 @@ function adjustClockSkew(res) {
 	CLOCK_SKEW = serverTime - currentTime;
 }
 
-function requestToken(scope) {
+function requestToken(scope, keepSessionAliveOnRefetch) {
+	const payload = keepSessionAliveOnRefetch
+		? {scope: scope}
+		: {scope: scope, 'X-D2L-Session': 'no-keep-alive'};
+
 	return new Promise(function(resolve, reject) {
 		request
 			.post(TOKEN_ROUTE)
 			.type('form')
-			.send({
-				scope: scope
-			})
+			.send(payload)
 			.use(xsrfToken)
 			.end(function(err, res) {
 				if (err) {
@@ -87,9 +89,9 @@ function requestToken(scope) {
 	});
 }
 
-function requestTokenDeduped(scope) {
+function requestTokenDeduped(scope, keepSessionAliveOnRefetch) {
 	if (!IN_FLIGHT_REQUESTS[scope]) {
-		IN_FLIGHT_REQUESTS[scope] = requestToken(scope)
+		IN_FLIGHT_REQUESTS[scope] = requestToken(scope, keepSessionAliveOnRefetch)
 			.then(function(token) {
 				delete IN_FLIGHT_REQUESTS[scope];
 				return token;
@@ -103,7 +105,7 @@ function requestTokenDeduped(scope) {
 	return IN_FLIGHT_REQUESTS[scope];
 }
 
-module.exports = function getLocalJwt(scope) {
+module.exports = function getLocalJwt(scope, keepSessionAliveOnRefetch = true) {
 	return Promise
 		.resolve()
 		.then(function() {
@@ -113,7 +115,7 @@ module.exports = function getLocalJwt(scope) {
 
 			return cached()
 				.catch(function() {
-					return requestTokenDeduped(scope)
+					return requestTokenDeduped(scope, keepSessionAliveOnRefetch)
 						.then(cacheToken.bind(null, scope))
 						.then(cached);
 				});
