@@ -66,14 +66,18 @@ function adjustClockSkew(res) {
 	CLOCK_SKEW = serverTime - currentTime;
 }
 
-function requestToken(scope) {
+function requestToken(scope, opts) {
+	const params = { scope: scope };
+
+	if (opts && opts.extendSession === false) {
+		params['X-D2L-Session'] = 'no-keep-alive';
+	}
+
 	return new Promise(function(resolve, reject) {
 		request
 			.post(TOKEN_ROUTE)
 			.type('form')
-			.send({
-				scope: scope
-			})
+			.send(params)
 			.use(xsrfToken)
 			.end(function(err, res) {
 				if (err) {
@@ -87,9 +91,9 @@ function requestToken(scope) {
 	});
 }
 
-function requestTokenDeduped(scope) {
+function requestTokenDeduped(scope, opts) {
 	if (!IN_FLIGHT_REQUESTS[scope]) {
-		IN_FLIGHT_REQUESTS[scope] = requestToken(scope)
+		IN_FLIGHT_REQUESTS[scope] = requestToken(scope, opts)
 			.then(function(token) {
 				delete IN_FLIGHT_REQUESTS[scope];
 				return token;
@@ -103,7 +107,7 @@ function requestTokenDeduped(scope) {
 	return IN_FLIGHT_REQUESTS[scope];
 }
 
-module.exports = function getLocalJwt(scope) {
+module.exports = function getLocalJwt(scope, opts) {
 	return Promise
 		.resolve()
 		.then(function() {
@@ -113,7 +117,7 @@ module.exports = function getLocalJwt(scope) {
 
 			return cached()
 				.catch(function() {
-					return requestTokenDeduped(scope)
+					return requestTokenDeduped(scope, opts)
 						.then(cacheToken.bind(null, scope))
 						.then(cached);
 				});
