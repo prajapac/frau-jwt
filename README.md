@@ -43,6 +43,12 @@ Defaults to `*:*:*`.
 * `foo:bar:baz`
 * `a:b:c x:y:z`
 
+##### Optional: opts
+
+If an _opts_ object is provided, it will be checked to see if it contains `extendSession` and its value.
+Specifically, if `extendSession` is set to `false`, then the parameter `X-D2L-Session: no-keep-alive` is sent as part of the token fetch request body.
+This prevents the user session from being extended when the token is refetched.
+
 ## Testing
 
 ```bash
