@@ -12,7 +12,7 @@ jobs:
           [[ "${GITHUB_REF}" =~ ^refs/tags/ ]] && GIT_TAG=${GITHUB_REF/refs\/tags\//}
           echo "GIT_TAG=${GIT_TAG}" >> $GITHUB_ENV
           echo "GIT_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-          echo "$GITHUB_ENV"
+          echo "${{ GITHUB_ENV }}"
       - name: Setup Node
         uses: Brightspace/third-party-actions@actions/setup-node
         with:
