@@ -17,7 +17,8 @@
       "files": "./dist/**/*.js",
       "moduleType": "lib",
       "targetDirectory": "frau-jwt",
-      "versionVar": "TRAVIS_TAG"
+      "devTagVar": "GIT_COMMIT",
+      "versionVar": "GIT_TAG"
     }
   },
   "repository": {
