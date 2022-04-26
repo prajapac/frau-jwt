@@ -111,12 +111,12 @@ module.exports = function getLocalJwt(scope, opts) {
 	return Promise
 		.resolve()
 		.then(function() {
-			scope = scope || DEFAULT_SCOPE;
-
 			if (typeof scope === 'object') {
 				opts = scope;
-				scope = DEFAULT_SCOPE;
+				scope = undefined;
 			}
+
+			scope = scope || DEFAULT_SCOPE;
 
 			var cached = cachedToken.bind(null, scope);
 
