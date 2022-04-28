@@ -66,6 +66,19 @@ npm test
 5. Submit a pull request to this repository. Wait for tests to run and someone
    to chime in.
 
+## Triggering a Release
+
+Releases occur based on the most recent commit message:
+* Commits which contain `[increment patch]` will trigger a `patch` release. Example: `validate input before using [increment patch]`
+* Commits which contain `[increment minor]` will trigger a `minor` release. Example: `add toggle() method [increment minor]`
+* Commits which contain `[increment major]` will trigger a `major` release. Example: `breaking all the things [increment major]`
+
+**Note:** When merging a pull request, this will be the merge commit message.
+
+## Default Increment
+
+If the most recent commit does not contain `[increment major|minor|patch]`, it will default to `[increment patch]`.
+
 ### Code Style
 
 This repository is configured with [EditorConfig][EditorConfig] and
