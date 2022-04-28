@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Node Logging
-        run: node -v ; npm -v ; nvm -v
+        run: node -v ; npm -v
       - name: Install Dependencies
         run: npm i
       - name: Run Linter and Tests
