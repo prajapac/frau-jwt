@@ -7,23 +7,15 @@ jobs:
     steps:
       - name: Checkout Code
         uses: Brightspace/third-party-actions@actions/checkout
-      - name: Get Git Info
-        run: |
-          [[ "${GITHUB_REF}" =~ ^refs/tags/ ]] && GIT_TAG=${GITHUB_REF/refs\/tags\//}
-          echo "GIT_TAG=${GIT_TAG}" >> $GITHUB_ENV
-          echo "GIT_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
       - name: Setup Node
         uses: Brightspace/third-party-actions@actions/setup-node
         with:
           node-version: 16.x
+      - name: Node Logging
+        run: node -v ; npm -v ; nvm -v
       - name: Install Dependencies
         run: npm i
       - name: Run Linter and Tests
         run: npm test
       - name: Bundle
         run: npm run bundle-host
-      - name: Publish
-        run: npm run publish:cdn
-        env:
-          GIT_TAG: ${{ env.GIT_TAG }}
-          GIT_COMMIT: ${{ env.GIT_COMMIT }}
