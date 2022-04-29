@@ -10,9 +10,6 @@ module.exports = function getFramedJwt(scope, opts) {
 			return new Client().connect();
 		})
 		.then(function(client) {
-			if (opts && opts.extendSession === false) {
-				return client.request(REQUEST_KEY, scope, 'X-D2L-Session:no-keep-alive');
-			}
-			return client.request(REQUEST_KEY, scope);
+			return client.request(REQUEST_KEY, scope, opts);
 		});
 };
